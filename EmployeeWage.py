@@ -27,11 +27,18 @@ class EmployeeWage:
 if __name__ == '__main__':
     print("Welcome to Employee Wage Computation Program")
     employee_wage_for_a_month = 0
-    for day in range(1, 21):
+    emp_hours = 0
+    day = 1
+    while True:
         print(f"day {day} : ")
         EmployeeWage.employee_attendance()
+        emp_hours = emp_hours + EmployeeWage.hours_per_day
         EmployeeWage.employee_daily_wage = EmployeeWage.wage_per_hour * EmployeeWage.hours_per_day
         print(f"Employee's salary for day {day} is : {EmployeeWage.employee_daily_wage}")
         employee_wage_for_a_month = employee_wage_for_a_month + EmployeeWage.employee_daily_wage
-    else:
-        print(f"\nEmployee's Salary for the Entire Month is: {employee_wage_for_a_month}")
+        day = day + 1
+        if (emp_hours >= 100) or (day >= 20):
+            print(f"Employee hours : {emp_hours} and Days : {day}")
+            break
+
+    print(f"\nEmployee's Salary for the Entire Month is: {employee_wage_for_a_month}")
