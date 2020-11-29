@@ -9,7 +9,7 @@ class EmployeeWage:
     PART_TIME = 1
     full_time_employee_hours = 8
     part_time_employee_hours = 4
-    monthly_wage_data = []
+    monthly_wage_data = {}
 
     @classmethod
     def employee_attendance(cls):
@@ -45,7 +45,7 @@ if __name__ == '__main__':
         print(f"Employee's salary for day {day} is : {EmployeeWage.employee_daily_wage}")
         employee_wage_for_a_month = employee_wage_for_a_month + EmployeeWage.employee_daily_wage
         daily_wage_data[f"{EmployeeWage.employee_daily_wage}"] = f"{employee_wage_for_a_month}"
-        EmployeeWage.monthly_wage_data.append(daily_wage_data)
+        EmployeeWage.monthly_wage_data[day] = daily_wage_data
         day = day + 1
         if (emp_hours >= 100) or (day >= 20):
             print(f"Employee hours : {emp_hours} and Days : {day}")
