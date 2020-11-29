@@ -12,16 +12,20 @@ class EmployeeWage:
 
     @classmethod
     def employee_attendance(cls):
-        attendance = random.randint(0, 2)
-        if attendance == EmployeeWage.FULL_TIME:
+        presence = random.randint(0, 2)
+        return presence
+
+    @classmethod
+    def employee_work_hours(cls, attendance_of_employee):
+        if attendance_of_employee == EmployeeWage.FULL_TIME:
             print("Employee is present for : Full Time")
-            EmployeeWage.hours_per_day = EmployeeWage.full_time_employee_hours
-        elif attendance == EmployeeWage.PART_TIME:
+            return EmployeeWage.full_time_employee_hours
+        elif attendance_of_employee == EmployeeWage.PART_TIME:
             print("Employee is present for : Part time")
-            EmployeeWage.hours_per_day = EmployeeWage.part_time_employee_hours
+            return EmployeeWage.part_time_employee_hours
         else:
             print("Employee is Absent")
-            EmployeeWage.hours_per_day = 0
+            return 0
 
 
 if __name__ == '__main__':
@@ -29,9 +33,11 @@ if __name__ == '__main__':
     employee_wage_for_a_month = 0
     emp_hours = 0
     day = 1
+    attendance = 0
     while True:
         print(f"day {day} : ")
-        EmployeeWage.employee_attendance()
+        attendance = EmployeeWage.employee_attendance()
+        EmployeeWage.hours_per_day = EmployeeWage.employee_work_hours(attendance)
         emp_hours = emp_hours + EmployeeWage.hours_per_day
         EmployeeWage.employee_daily_wage = EmployeeWage.wage_per_hour * EmployeeWage.hours_per_day
         print(f"Employee's salary for day {day} is : {EmployeeWage.employee_daily_wage}")
