@@ -30,8 +30,8 @@ class EmployeeWage:
     def calculate_wage(cls,):
         emp_hours = 0
         day = 1
-        daily_wage_data = {}
         while (emp_hours < 100) and (day < 20):
+            daily_wage_data = {}
             print(f"day {day} : ")
             attendance = EmployeeWage.employee_attendance()
             EmployeeWage.employee_work_hours(attendance)
