@@ -19,43 +19,38 @@ class EmployeeWage:
 
     @classmethod
     def employee_work_hours(cls, attendance_of_employee):
-        if attendance_of_employee == EmployeeWage.FULL_TIME:
-            print("Employee is present for : Full Time")
-            return EmployeeWage.full_time_employee_hours
-        elif attendance_of_employee == EmployeeWage.PART_TIME:
-            print("Employee is present for : Part time")
-            return EmployeeWage.part_time_employee_hours
-        else:
-            print("Employee is Absent")
-            return 0
+        switch = {
+            0: EmployeeWage.full_time_employee_hours,
+            1: EmployeeWage.part_time_employee_hours,
+            2: 0
+        }
+        EmployeeWage.hours_per_day = switch.get(attendance_of_employee)
 
     @classmethod
-    def calculate_wage(cls, day_number):
-        EmployeeWage.employee_daily_wage = EmployeeWage.wage_per_hour * EmployeeWage.hours_per_day
-        EmployeeWage.employee_wage_for_a_month += EmployeeWage.employee_daily_wage
-        daily_wage_data[f"{EmployeeWage.employee_daily_wage}"] = f"{EmployeeWage.employee_wage_for_a_month}"
-        EmployeeWage.monthly_wage_data[day_number] = daily_wage_data
+    def calculate_wage(cls,):
+        emp_hours = 0
+        day = 1
+        daily_wage_data = {}
+        while (emp_hours < 100) and (day < 20):
+            print(f"day {day} : ")
+            attendance = EmployeeWage.employee_attendance()
+            EmployeeWage.employee_work_hours(attendance)
+            emp_hours = emp_hours + EmployeeWage.hours_per_day
+            if emp_hours > 100:
+                diff = emp_hours - 100
+                EmployeeWage.hours_per_day -= diff
+                emp_hours -= diff
+            EmployeeWage.employee_daily_wage = EmployeeWage.wage_per_hour * EmployeeWage.hours_per_day
+            print(f"Employee's salary for day {day} is : {EmployeeWage.employee_daily_wage}")
+            EmployeeWage.employee_wage_for_a_month += EmployeeWage.employee_daily_wage
+            daily_wage_data[f"{EmployeeWage.employee_daily_wage}"] = f"{EmployeeWage.employee_wage_for_a_month}"
+            EmployeeWage.monthly_wage_data[day] = daily_wage_data
+            day = day + 1
+        print(f"Employee hours : {emp_hours} and Days : {day}")
 
 
 if __name__ == '__main__':
     print("Welcome to Employee Wage Computation Program")
-    employee_wage_for_a_month = 0
-    emp_hours = 0
-    day = 1
-    attendance = 0
-    while (emp_hours < 100) and (day < 20):
-        daily_wage_data = {}
-        print(f"day {day} : ")
-        attendance = EmployeeWage.employee_attendance()
-        EmployeeWage.hours_per_day = EmployeeWage.employee_work_hours(attendance)
-        emp_hours = emp_hours + EmployeeWage.hours_per_day
-        if emp_hours > 100:
-            diff = emp_hours - 100
-            EmployeeWage.hours_per_day -= diff
-            emp_hours -= diff
-        EmployeeWage.calculate_wage(day)
-        print(f"Employee's salary for day {day} is : {EmployeeWage.employee_daily_wage}")
-        day = day + 1
-    print(f"Employee hours : {emp_hours} and Days : {day}")
+    EmployeeWage.calculate_wage()
     print(f"\nEmployee's Salary for the Entire Month is: {EmployeeWage.employee_wage_for_a_month}")
     print(f"\n{EmployeeWage.monthly_wage_data}")
