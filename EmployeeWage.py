@@ -29,7 +29,7 @@ if __name__ == '__main__':
     employee_wage_for_a_month = 0
     emp_hours = 0
     day = 1
-    while True:
+    while (emp_hours < 100) and (day < 20):
         print(f"day {day} : ")
         EmployeeWage.employee_attendance()
         emp_hours = emp_hours + EmployeeWage.hours_per_day
@@ -37,8 +37,9 @@ if __name__ == '__main__':
         print(f"Employee's salary for day {day} is : {EmployeeWage.employee_daily_wage}")
         employee_wage_for_a_month = employee_wage_for_a_month + EmployeeWage.employee_daily_wage
         day = day + 1
-        if (emp_hours >= 100) or (day >= 20):
-            print(f"Employee hours : {emp_hours} and Days : {day}")
-            break
-
+    print(f"Employee hours : {emp_hours} and Days : {day}")
+    if emp_hours > 100:
+        employee_wage_for_a_month -= EmployeeWage.employee_daily_wage
+        emp_hours -= EmployeeWage.hours_per_day
+        print(f"Employee hours : {emp_hours} and Days : {day}")
     print(f"\nEmployee's Salary for the Entire Month is: {employee_wage_for_a_month}")
